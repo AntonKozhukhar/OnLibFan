@@ -2,40 +2,84 @@
   <v-card
     width='400'
   >
-    <v-card-title class='justify-center pb-0'>Login</v-card-title>
+    <v-card-title class='justify-center pb-0'>
+      <span v-if='haveAccount'>Login</span>
+      <span v-else>Registered</span>
+    </v-card-title>
     <v-form v-model='valid'>
-      <v-container>
+      <v-container v-if='haveAccount'>
         <v-text-field
-          v-model='loginData.firstname'
+          v-model='loginData.email'
+          required
+          :rules='emailRules'
+          label='Email'
+        >
+        </v-text-field>
+        <v-text-field
+          v-model='loginData.password'
+          required
+          :rules='passwordRules'
+          label='Password'
+        >
+        </v-text-field>
+        <v-row class='justify-space-between px-3 py-2'>
+          <v-btn
+            class='pa-0'
+            color='red'
+            plain
+            @click='haveAccount = false'
+          >
+            No account?
+          </v-btn>
+          <v-btn
+            class='pa-0'
+            color='green'
+            plain
+            :loading='loginLoader'
+            @click='toLogin(loginData)'
+          >
+            SUBMIT
+          </v-btn>
+        </v-row>
+      </v-container>
+      <v-container v-else >
+        <v-text-field
+          v-model='registerData.firstname'
           :rules='nameRules'
           label='First name'
           required
         ></v-text-field>
         <v-text-field
-          v-model='loginData.lastname'
+          v-model='registerData.lastname'
           :rules='nameRules'
           label='Last name'
           required
         ></v-text-field>
         <v-text-field
-          v-model='loginData.email'
+          v-model='registerData.email'
           :rules='emailRules'
           label='E-mail'
           required
         ></v-text-field>
         <v-text-field
-          v-model='loginData.password'
+          v-model='registerData.password'
           :rules='passwordRules'
           label='Password'
           required
         ></v-text-field>
         <v-text-field
-          v-model='loginData.confirmPassword'
+          v-model='registerData.confirmPassword'
           :rules='passwordRules'
           label='Confirm password'
           required
         ></v-text-field>
-        <v-btn class='mt-4'>Submit</v-btn>
+        <v-btn
+          class='pa-0'
+          color='green'
+          plain
+          :loading='registerLoader'
+          @click='toRegister(registerData)'
+        >Submit</v-btn>
       </v-container>
     </v-form>
   </v-card>
@@ -47,12 +91,18 @@ export default {
   layout: 'auth',
   data: () => ({
     valid: false,
+    registerLoader: false,
+    loginLoader: false,
     loginData: {
+      email: '',
+      password: '',
+    },
+    registerData: {
       firstname: '',
       lastname: '',
       email: '',
       password: '',
-      confirmPassword: ''
+      confirmPassword: '',
     },
     nameRules: [
       v => !!v || 'Name is required',
@@ -65,8 +115,25 @@ export default {
     passwordRules: [
       v => !!v || 'Password is required',
       v => v.length <= 10 || 'Password must be less than 10 characters',
-    ]
+    ],
+    haveAccount: true,
   }),
+  methods: {
+    toRegister(registerData) {
+      this.registerLoader = true
+      console.log(registerData)
+      setTimeout(() => {
+        this.registerLoader = false
+      },2_000)
+    },
+    toLogin(loginData) {
+      this.loginLoader = true
+      console.log(loginData)
+      setTimeout(() => {
+        this.loginLoader = false
+      },2_000)
+    }
+  }
 }
 </script>
 

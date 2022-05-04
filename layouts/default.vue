@@ -28,6 +28,17 @@
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-toolbar-title v-text="title" />
       <v-spacer />
+      <v-btn
+         to='/login'
+         class="ma-1"
+         color="success"
+         plain
+      >
+        Login
+        <v-icon>
+          mdi-login
+        </v-icon>
+      </v-btn>
     </v-app-bar>
     <v-main>
       <v-container>
@@ -46,7 +57,7 @@ export default {
   data() {
     return {
       clipped: false,
-      drawer: false,
+      drawer: true,
       fixed: false,
       items: [
         {
@@ -58,11 +69,6 @@ export default {
           icon: 'mdi-chart-bubble',
           title: 'Inspire',
           to: '/inspire',
-        },
-        {
-          icon: 'mdi-chart-bubble',
-          title: 'Login',
-          to: '/login',
         },
       ],
       miniVariant: false,
