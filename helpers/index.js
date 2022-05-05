@@ -1,7 +1,8 @@
 import users from '../store/users'
 import index from '../store/index'
+
 export default {
-  setHeaders()  {
+  setHeaders() {
     return {
       Accept: 'application/json',
       'Content-Type': 'application/json',

@@ -122,7 +122,10 @@ export default {
     haveAccount: true
   }),
   methods: {
-    ...mapActions('users', ['registration', 'login']),
+    ...mapActions({
+      registration: 'users/registration',
+      login: 'users/login',
+    }),
     async register() {
       this.btnLoader = true
       try {

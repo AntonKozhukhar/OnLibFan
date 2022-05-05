@@ -4,11 +4,11 @@ const state = () => ({
     color: 'grey',
     message: '',
     timeout: 4000
-  },
+  }
 })
 
 const mutations = {
-  SET_SNACKBAR_DATA: (state, data) => state.snackbarData = data,
+  SET_SNACKBAR_DATA: (state, data) => state.snackbarData = data
 }
 
-export default {mutations, state}
+export default { mutations, state }

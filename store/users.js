@@ -1,7 +1,7 @@
 import helpers from '../helpers/index'
 
 const state = () => ({
-  userToken: 123,
+  userToken: null,
   user: {}
 })
 
@@ -12,10 +12,10 @@ const mutations = {
 
 export const actions = {
   async registration({ commit }, data) {
+    console.log('test')
     try {
       const res = await this.$axios.post(
-        'registration', data,
-        { headers: helpers.setHeaders() }
+        'registration', data
       )
       commit('ADD_USER_TOKEN', res)
     } catch (e) {
@@ -35,4 +35,4 @@ export const actions = {
   }
 }
 
-export default {state, mutations}
+export default { state, mutations }
