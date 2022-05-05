@@ -6,8 +6,8 @@ export default {
   mode: 'ssr',
   devtools: true,
   head: {
-    titleTemplate: '%s - OnLibFan',
-    title: 'OnLibFan',
+    titleTemplate: 'OneLibFans',
+    title: 'OneLibFans',
     htmlAttrs: {
       lang: 'en'
     },

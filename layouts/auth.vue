@@ -24,7 +24,7 @@
 export default {
   name: 'AuthLayout',
   data: () => ({
-    title: 'OnLibFan'
+    title: 'OneLibFans'
   }),
 }
 </script>

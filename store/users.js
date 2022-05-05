@@ -12,11 +12,8 @@ const mutations = {
 
 export const actions = {
   async registration({ commit }, data) {
-    console.log('test')
     try {
-      const res = await this.$axios.post(
-        'registration', data
-      )
+      const res = await this.$axios.post('registration', data)
       commit('ADD_USER_TOKEN', res)
     } catch (e) {
       helpers.errorHandler(e)
@@ -24,10 +21,7 @@ export const actions = {
   },
   async login({ commit }, data) {
     try {
-      const res = await this.$axios.post(
-        'login', data,
-        { headers: helpers.setHeaders() }
-      )
+      const res = await this.$axios.post('login', data)
       commit('ADD_USER', res)
     } catch (e) {
       helpers.errorHandler(e)
@@ -35,4 +29,4 @@ export const actions = {
   }
 }
 
-export default { state, mutations }
+export default { state, mutations, actions }

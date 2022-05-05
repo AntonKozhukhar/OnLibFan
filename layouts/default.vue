@@ -78,7 +78,7 @@ export default {
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: 'OnLibFan',
+      title: 'OneLibFans',
     }
   },
 }

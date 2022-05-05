@@ -44,13 +44,13 @@
       </v-container>
       <v-container v-else>
         <v-text-field
-          v-model='registerData.firstname'
+          v-model='registerData.first_name'
           :rules='nameRules'
           label='First name'
           required
         ></v-text-field>
         <v-text-field
-          v-model='registerData.lastname'
+          v-model='registerData.last_name'
           :rules='nameRules'
           label='Last name'
           required
@@ -101,8 +101,8 @@ export default {
       password: ''
     },
     registerData: {
-      firstname: '',
-      lastname: '',
+      first_name: '',
+      last_name: '',
       email: '',
       password: ''
     },
@@ -140,7 +140,7 @@ export default {
     async logIn() {
       this.btnLoader = true
       try {
-        await this.login(this.registerData)
+        await this.login(this.loginData)
       } catch (e) {
         this.btnLoader = false
       }
