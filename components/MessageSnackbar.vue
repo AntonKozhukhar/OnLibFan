@@ -7,13 +7,12 @@
     class='white--text'
   >
     {{ snackbarData.message }}
-
     <template #action={attrs}>
       <v-btn
         color='white'
         text
         v-bind='attrs'
-        @click='close'
+        @click='hideSnackbar'
       >
         Close
       </v-btn>
@@ -22,28 +21,30 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 
 export default {
-  name: 'ErrorHandler',
+  name: 'MessageSnackbar',
   computed: {
     ...mapState('global', ['snackbarData'])
   },
   watch: {
     snackbarData: {
       handler() {
+        console.log('test')
         if (this.snackbarData.show) this.checkTimeout()
       },
       deep: true
     }
   },
   methods: {
+    ...mapMutations('global', ['SET_SNACKBAR_DATA']),
     checkTimeout() {
       const time = this.snackbarData.timeout ? this.snackbarData.timeout : 4000
       setTimeout(() => this.hideSnackbar(), time)
     },
     hideSnackbar() {
-      this.$store.dispatch('snackbar', {
+      this.SET_SNACKBAR_DATA({
         show: false,
         color: 'grey',
         message: ''
