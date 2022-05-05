@@ -1,4 +1,4 @@
-export const state = () => ({
+const state = () => ({
   snackbarData: {
     show: false,
     color: 'grey',
@@ -7,6 +7,8 @@ export const state = () => ({
   },
 })
 
-export const mutations = {
+const mutations = {
   SET_SNACKBAR_DATA: (state, data) => state.snackbarData = data,
 }
+
+export default {mutations, state}

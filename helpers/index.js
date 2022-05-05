@@ -1,12 +1,11 @@
-import {state} from '../store/users'
-import {mutations} from '../store/index'
+import users from '../store/users'
+import index from '../store/index'
 export default {
   setHeaders()  {
-    console.log(mutations)
     return {
       Accept: 'application/json',
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${state().userToken}`
+      Authorization: `Bearer ${users.state().userToken}`
     }
   },
   errorHandler(response) {
@@ -34,7 +33,7 @@ export default {
         message = response.data.message ? response.data.message : message
         break
     }
-    mutations.SET_SNACKBAR_DATA ({
+    index.SET_SNACKBAR_DATA({
       show: true,
       color,
       message

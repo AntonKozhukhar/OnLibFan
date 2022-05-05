@@ -1,11 +1,11 @@
 import helpers from '../helpers/index'
 
-export const state = () => ({
+const state = () => ({
   userToken: 123,
   user: {}
 })
 
-export const mutations = {
+const mutations = {
   ADD_USER: (state, user) => state.user = user,
   ADD_USER_TOKEN: (state, token) => state.userToken = token
 }
@@ -35,3 +35,4 @@ export const actions = {
   }
 }
 
+export default {state, mutations}
