@@ -9,6 +9,13 @@ export default {
       Authorization: `Bearer ${users.state().userToken}`
     }
   },
+  headersForLogOut(token) {
+    return {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`
+    }
+  },
   errorHandler(response) {
     let color = 'grey'
     let message = response.statusText

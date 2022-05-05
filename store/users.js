@@ -5,6 +5,10 @@ const state = () => ({
   user: {}
 })
 
+const getters = {
+  chekUserToken: ({userToken}) => !!userToken,
+}
+
 const mutations = {
   ADD_USER: (state, user) => state.user = user,
   ADD_USER_TOKEN: (state, token) => state.userToken = token,
@@ -25,15 +29,19 @@ export const actions = {
   async login({ commit }, data) {
     try {
       const res = await this.$axios.post('login', data)
-      commit('ADD_USER', res.data.user)
-      commit('ADD_USER_TOKEN', res.data.token)
+      commit('ADD_USER', res.data.data.user)
+      commit('ADD_USER_TOKEN', res.data.data.token)
     } catch (e) {
       helpers.errorHandler(e.response)
     }
   },
-  async logout({ commit }) {
+  async logout({ commit }, token) {
+    console.log('test')
     try {
-      await this.$axios.post('logout')
+      await this.$axios.post(
+        'logout',
+        {},
+        {headers: helpers.headersForLogOut(token)})
       commit('DELETE_USER')
     } catch (e) {
       helpers.errorHandler(e.response)
@@ -41,4 +49,4 @@ export const actions = {
   }
 }
 
-export default { state, mutations, actions }
+export default { state, mutations, actions, getters }
