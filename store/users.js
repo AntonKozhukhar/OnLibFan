@@ -1,4 +1,4 @@
-import helpers from '@/helpers'
+import helpers from '../helpers/index'
 
 export const state = () => ({
   userToken: 123,
