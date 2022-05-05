@@ -73,22 +73,32 @@
           label='Confirm password'
           required
         ></v-text-field>
-        <v-btn
-          class='pa-0'
-          color='green'
-          plain
-          :loading='btnLoader'
-          @click='register'
-        >
-          Submit
-        </v-btn>
+        <v-row class='d-flex justify-space-between px-3 py-2'>
+          <v-btn
+            class='pa-0'
+            color='primary'
+            plain
+            @click='haveAccount = true'
+          >
+            HAVE ACCOUNT?
+          </v-btn>
+          <v-btn
+            class='pa-0'
+            color='green'
+            plain
+            :loading='btnLoader'
+            @click='register'
+          >
+            Submit
+          </v-btn>
+        </v-row>
       </v-container>
     </v-form>
   </v-card>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import {mapActions} from 'vuex'
 
 export default {
   name: 'LoginPage',
@@ -98,28 +108,28 @@ export default {
     btnLoader: false,
     loginData: {
       email: '',
-      password: ''
+      password: '',
     },
     registerData: {
       first_name: '',
       last_name: '',
       email: '',
-      password: ''
+      password: '',
     },
     confirmPassword: '',
     nameRules: [
       v => !!v || 'Name is required',
-      v => v.length <= 10 || 'Name must be less than 10 characters'
+      v => v.length <= 10 || 'Name must be less than 10 characters',
     ],
     emailRules: [
       v => !!v || 'E-mail is required',
-      v => /.+@.+/.test(v) || 'E-mail must be valid'
+      v => /.+@.+/.test(v) || 'E-mail must be valid',
     ],
     passwordRules: [
       v => !!v || 'Password is required',
-      v => v.length <= 10 || 'Password must be less than 10 characters'
+      v => v.length <= 10 || 'Password must be less than 10 characters',
     ],
-    haveAccount: true
+    haveAccount: true,
   }),
   methods: {
     ...mapActions({
@@ -145,8 +155,8 @@ export default {
         this.btnLoader = false
       }
       this.btnLoader = false
-    }
-  }
+    },
+  },
 }
 </script>
 
