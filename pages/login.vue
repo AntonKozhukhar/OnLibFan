@@ -35,14 +35,14 @@
             class='pa-0'
             color='green'
             plain
-            :loading='loginLoader'
-            @click='toLogin(loginData)'
+            :loading='btnLoader'
+            @click='logIn'
           >
-            SUBMIT
+            Submit
           </v-btn>
         </v-row>
       </v-container>
-      <v-container v-else >
+      <v-container v-else>
         <v-text-field
           v-model='registerData.firstname'
           :rules='nameRules'
@@ -68,7 +68,7 @@
           required
         ></v-text-field>
         <v-text-field
-          v-model='registerData.confirmPassword'
+          v-model='confirmPassword'
           :rules='passwordRules'
           label='Confirm password'
           required
@@ -77,61 +77,71 @@
           class='pa-0'
           color='green'
           plain
-          :loading='registerLoader'
-          @click='toRegister(registerData)'
-        >Submit</v-btn>
+          :loading='btnLoader'
+          @click='register'
+        >
+          Submit
+        </v-btn>
       </v-container>
     </v-form>
   </v-card>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   name: 'LoginPage',
   layout: 'auth',
   data: () => ({
     valid: false,
-    registerLoader: false,
-    loginLoader: false,
+    btnLoader: false,
     loginData: {
       email: '',
-      password: '',
+      password: ''
     },
     registerData: {
       firstname: '',
       lastname: '',
       email: '',
-      password: '',
-      confirmPassword: '',
+      password: ''
     },
+    confirmPassword: '',
     nameRules: [
       v => !!v || 'Name is required',
-      v => v.length <= 10 || 'Name must be less than 10 characters',
+      v => v.length <= 10 || 'Name must be less than 10 characters'
     ],
     emailRules: [
       v => !!v || 'E-mail is required',
-      v => /.+@.+/.test(v) || 'E-mail must be valid',
+      v => /.+@.+/.test(v) || 'E-mail must be valid'
     ],
     passwordRules: [
       v => !!v || 'Password is required',
-      v => v.length <= 10 || 'Password must be less than 10 characters',
+      v => v.length <= 10 || 'Password must be less than 10 characters'
     ],
-    haveAccount: true,
+    haveAccount: true
   }),
   methods: {
-    toRegister(registerData) {
-      this.registerLoader = true
-      console.log(registerData)
-      setTimeout(() => {
-        this.registerLoader = false
-      },2_000)
+    ...mapActions('users', ['registration', 'login']),
+    async register() {
+      this.btnLoader = true
+      try {
+        if (this.registerData.password === this.confirmPassword) {
+          await this.registration(this.registerData)
+        }
+      } catch (e) {
+        this.btnLoader = false
+      }
+      this.btnLoader = false
     },
-    toLogin(loginData) {
-      this.loginLoader = true
-      console.log(loginData)
-      setTimeout(() => {
-        this.loginLoader = false
-      },2_000)
+    async logIn() {
+      this.btnLoader = true
+      try {
+        await this.login(this.registerData)
+      } catch (e) {
+        this.btnLoader = false
+      }
+      this.btnLoader = false
     }
   }
 }
