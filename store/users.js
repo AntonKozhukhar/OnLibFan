@@ -8,7 +8,10 @@ const state = () => ({
 const mutations = {
   ADD_USER: (state, user) => state.user = user,
   ADD_USER_TOKEN: (state, token) => state.userToken = token,
-  DELETE_USER_TOKEN: (state) => state.userToken = null
+  DELETE_USER: (state) => {
+    state.user = {}
+    state.userToken = null
+  }
 }
 
 export const actions = {
@@ -16,7 +19,7 @@ export const actions = {
     try {
       await this.$axios.post('registration', data)
     } catch (e) {
-      helpers.errorHandler(e)
+      helpers.errorHandler(e.response)
     }
   },
   async login({ commit }, data) {
@@ -25,15 +28,15 @@ export const actions = {
       commit('ADD_USER', res.data.user)
       commit('ADD_USER_TOKEN', res.data.token)
     } catch (e) {
-      helpers.errorHandler(e)
+      helpers.errorHandler(e.response)
     }
   },
   async logout({ commit }) {
     try {
       await this.$axios.post('logout')
-      
+      commit('DELETE_USER')
     } catch (e) {
-      helpers.errorHandler(e)
+      helpers.errorHandler(e.response)
     }
   }
 }
