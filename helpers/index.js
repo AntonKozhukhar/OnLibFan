@@ -24,23 +24,18 @@ export default {
         break
       case 404:
         color = 'warning'
-        message = response.data.message ? response.data.message : message
         break
       case 422:
         color = 'info'
-        message = response.data.message ? response.data.message : message
         break
-      
       case 500:
         color = 'error'
-        message = response.data.message ? response.data.message : message
         break
-      
       default:
         color = 'grey'
-        message = response.data.message ? response.data.message : message
         break
     }
+    message = response.data.message || message
     global.SET_SNACKBAR_DATA({
       show: true,
       color,
