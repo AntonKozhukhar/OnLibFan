@@ -1,5 +1,5 @@
 import users from '../store/users'
-import index from '../store/index'
+import global from '../store/global'
 
 export default {
   setHeaders() {
@@ -34,7 +34,7 @@ export default {
         message = response.data.message ? response.data.message : message
         break
     }
-    index.SET_SNACKBAR_DATA({
+    global.SET_SNACKBAR_DATA({
       show: true,
       color,
       message

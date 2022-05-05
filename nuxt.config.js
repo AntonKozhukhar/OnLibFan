@@ -3,7 +3,6 @@ import helpers from './helpers'
 
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
-  mode: 'ssr',
   devtools: true,
   head: {
     titleTemplate: 'OneLibFans',

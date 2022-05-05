@@ -27,7 +27,7 @@ import { mapState } from 'vuex'
 export default {
   name: 'ErrorHandler',
   computed: {
-    ...mapState(['snackbarData'])
+    ...mapState('global', ['snackbarData'])
   },
   watch: {
     snackbarData: {
