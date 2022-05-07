@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import {mapActions, mapState} from 'vuex'
+import { mapState } from 'vuex'
 import RegisterFields from '~/components/Auth/RegisterFields'
 import LoginFields from '~/components/Auth/LoginFields'
 

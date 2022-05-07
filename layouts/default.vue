@@ -1,5 +1,8 @@
 <template>
   <v-app dark>
+    <v-system-bar
+      height="30"
+    ></v-system-bar>
     <v-navigation-drawer
       v-model='drawer'
       :mini-variant='miniVariant'
@@ -47,15 +50,14 @@
       <v-menu v-else offset-x>
         <template #activator='{ on, attrs }'>
           <v-btn
-            fab
-            dark
-            small
-            color="teal"
+            plain
+            color='indigo lighten-5'
             v-bind='attrs'
             v-on='on'
           >
+            {{ user.name }}
             <v-icon dark>
-               mdi-format-list-bulleted-square
+               mdi-account
             </v-icon>
           </v-btn>
         </template>
@@ -79,7 +81,7 @@
           <v-spacer></v-spacer>
           <v-btn
             color='black'
-            class='py-2'
+            class='py-5'
             plain
             @click='logOut'
           >
@@ -134,7 +136,7 @@ export default {
           to: '/books',
           title: 'Books',
           icon: 'mdi-book-open-blank-variant'
-        },
+        }
       ],
       miniVariant: false,
       right: true,
@@ -145,7 +147,7 @@ export default {
   },
   computed: {
     ...mapGetters('users', ['chekUserToken']),
-    ...mapState('users', ['user','userToken'])
+    ...mapState('users', ['user', 'userToken'])
   },
   watch: {
     chekUserToken() {
@@ -156,7 +158,7 @@ export default {
     this.loggedUser = this.chekUserToken
   },
   methods: {
-    ...mapActions('users',['logout']),
+    ...mapActions('users', ['logout']),
     async logOut() {
       await this.logout(this.userToken)
     }
