@@ -2,7 +2,8 @@ import helpers from '../helpers/index'
 
 const state = () => ({
   userToken: null,
-  user: {}
+  user: {},
+  authStatus: 'login'
 })
 
 const getters = {
@@ -15,7 +16,8 @@ const mutations = {
   DELETE_USER: (state) => {
     state.user = {}
     state.userToken = null
-  }
+  },
+  CHANGE_AUTH_STATUS: (state, desiredStatus) => state.authStatus = desiredStatus
 }
 
 export const actions = {

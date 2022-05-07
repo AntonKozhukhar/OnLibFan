@@ -1,159 +1,31 @@
 <template>
-  <v-card
-    width='400'
-  >
+  <v-card width='400'>
     <v-card-title class='justify-center pb-0'>
-      <span v-if='haveAccount'>Login</span>
-      <span v-else>Registered</span>
+      <span v-if="authStatus === 'login'">Login</span>
+      <span v-else>Registration</span>
     </v-card-title>
-    <v-form v-model='valid'>
-      <v-container v-if='haveAccount'>
-        <v-text-field
-          v-model='loginData.email'
-          required
-          :rules='emailRules'
-          label='Email'
-        >
-        </v-text-field>
-        <v-text-field
-          v-model='loginData.password'
-          required
-          :rules='passwordRules'
-          label='Password'
-        >
-        </v-text-field>
-        <v-row class='justify-space-between px-3 py-2'>
-          <v-btn
-            class='pa-0'
-            color='red'
-            plain
-            @click='haveAccount = false'
-          >
-            No account?
-          </v-btn>
-          <v-btn
-            class='pa-0'
-            color='green'
-            plain
-            :loading='btnLoader'
-            @click='logIn'
-          >
-            Submit
-          </v-btn>
-        </v-row>
-      </v-container>
-      <v-container v-else>
-        <v-text-field
-          v-model='registerData.first_name'
-          :rules='nameRules'
-          label='First name'
-          required
-        ></v-text-field>
-        <v-text-field
-          v-model='registerData.last_name'
-          :rules='nameRules'
-          label='Last name'
-          required
-        ></v-text-field>
-        <v-text-field
-          v-model='registerData.email'
-          :rules='emailRules'
-          label='E-mail'
-          required
-        ></v-text-field>
-        <v-text-field
-          v-model='registerData.password'
-          :rules='passwordRules'
-          label='Password'
-          required
-        ></v-text-field>
-        <v-text-field
-          v-model='confirmPassword'
-          :rules='passwordRules'
-          label='Confirm password'
-          required
-        ></v-text-field>
-        <v-row class='d-flex justify-space-between px-3 py-2'>
-          <v-btn
-            class='pa-0'
-            color='primary'
-            plain
-            @click='haveAccount = true'
-          >
-            HAVE ACCOUNT?
-          </v-btn>
-          <v-btn
-            class='pa-0'
-            color='green'
-            plain
-            :loading='btnLoader'
-            @click='register'
-          >
-            Submit
-          </v-btn>
-        </v-row>
-      </v-container>
+    <v-form ref='form' v-model='valid'>
+      <login-fields v-if="authStatus==='login'"></login-fields>
+      <register-fields v-else></register-fields>
     </v-form>
   </v-card>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import {mapActions, mapState} from 'vuex'
+import RegisterFields from '~/components/Auth/RegisterFields'
+import LoginFields from '~/components/Auth/LoginFields'
 
 export default {
   name: 'LoginPage',
+  components: {LoginFields, RegisterFields},
   layout: 'auth',
   data: () => ({
     valid: false,
-    btnLoader: false,
-    loginData: {
-      email: '',
-      password: '',
-    },
-    registerData: {
-      first_name: '',
-      last_name: '',
-      email: '',
-      password: '',
-    },
-    confirmPassword: '',
-    nameRules: [
-      v => !!v || 'Name is required',
-      v => v.length <= 10 || 'Name must be less than 10 characters',
-    ],
-    emailRules: [
-      v => !!v || 'E-mail is required',
-      v => /.+@.+/.test(v) || 'E-mail must be valid',
-    ],
-    passwordRules: [
-      v => !!v || 'Password is required',
-      v => v.length <= 10 || 'Password must be less than 10 characters',
-    ],
-    haveAccount: true,
   }),
-  methods: {
-    ...mapActions('users', ['registration', 'login']),
-    async register() {
-      this.btnLoader = true
-      try {
-        if (this.registerData.password === this.confirmPassword) {
-          await this.registration(this.registerData)
-        }
-      } catch (e) {
-        this.btnLoader = false
-      }
-      this.btnLoader = false
-    },
-    async logIn() {
-      this.btnLoader = true
-      try {
-        await this.login(this.loginData)
-      } catch (e) {
-        this.btnLoader = false
-      }
-      this.btnLoader = false
-    },
-  },
+  computed: {
+    ...mapState('users', ['authStatus'])
+  }
 }
 </script>
 
