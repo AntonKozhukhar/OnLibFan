@@ -23,7 +23,7 @@ export const actions = {
     try {
       await this.$axios.post('registration', data)
     } catch (e) {
-      helpers.errorHandler(e.response)
+      this.$notifier.showMessage(e.response)
     }
   },
   async login({ commit }, data) {
@@ -32,11 +32,10 @@ export const actions = {
       commit('ADD_USER', res.data.data.user)
       commit('ADD_USER_TOKEN', res.data.data.token)
     } catch (e) {
-      helpers.errorHandler(e.response)
+      this.$notifier.showMessage(e.response)
     }
   },
   async logout({ commit }, token) {
-    console.log('test')
     try {
       await this.$axios.post(
         'logout',
@@ -44,7 +43,7 @@ export const actions = {
         {headers: helpers.headersForLogOut(token)})
       commit('DELETE_USER')
     } catch (e) {
-      helpers.errorHandler(e.response)
+      this.$notifier.showMessage(e.response)
     }
   }
 }

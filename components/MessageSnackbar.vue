@@ -1,18 +1,18 @@
 <template>
   <v-snackbar
-    v-model='snackbarData.show'
+    v-model='show'
     top
     right
-    :color='snackbarData.color'
+    :color='color'
     class='white--text'
   >
-    {{ snackbarData.message }}
+    {{ message }}
     <template #action={attrs}>
       <v-btn
         color='white'
         text
         v-bind='attrs'
-        @click='hideSnackbar'
+        @click='show = false'
       >
         Close
       </v-btn>
@@ -21,36 +21,23 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
 
 export default {
   name: 'MessageSnackbar',
-  computed: {
-    ...mapState('global', ['snackbarData'])
+  data: () => ({
+    show:false,
+    color: '',
+    message: '',
+  }),
+  created() {
+    this.$store.subscribe((mutation, state) => {
+      if (mutation.type === 'snackbar/showMessage') {
+        this.message = state.snackbar.message
+        this.color = state.snackbar.color
+        this.show = true
+      }
+    })
   },
-  watch: {
-    snackbarData: {
-      handler() {
-        console.log('test')
-        if (this.snackbarData.show) this.checkTimeout()
-      },
-      deep: true
-    }
-  },
-  methods: {
-    ...mapMutations('global', ['SET_SNACKBAR_DATA']),
-    checkTimeout() {
-      const time = this.snackbarData.timeout ? this.snackbarData.timeout : 4000
-      setTimeout(() => this.hideSnackbar(), time)
-    },
-    hideSnackbar() {
-      this.SET_SNACKBAR_DATA({
-        show: false,
-        color: 'grey',
-        message: ''
-      })
-    }
-  }
 }
 </script>
 

@@ -98,7 +98,7 @@
 </template>
 
 <script>
-import { mapActions, mapMutations } from 'vuex'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'LoginPage',
@@ -133,7 +133,6 @@ export default {
   }),
   methods: {
     ...mapActions('users', ['registration', 'login']),
-    ...mapMutations('global', ['SET_SNACKBAR_DATA']),
     async register() {
       this.btnLoader = true
       try {
