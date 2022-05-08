@@ -1,7 +1,7 @@
 <template>
   <v-app dark>
     <v-system-bar
-      height="30"
+      height='30'
     ></v-system-bar>
     <v-navigation-drawer
       v-model='drawer'
@@ -47,50 +47,60 @@
           mdi-login
         </v-icon>
       </v-btn>
-      <v-menu v-else offset-x>
-        <template #activator='{ on, attrs }'>
+      <v-menu
+        bottom
+        min-width='200px'
+        rounded
+        v-else
+        offset-y
+      >
+        <template v-slot:activator='{ on }'>
           <v-btn
-            plain
-            color='indigo lighten-5'
-            v-bind='attrs'
+            icon
+            x-large
             v-on='on'
           >
-            {{ user.name }}
-            <v-icon dark>
-               mdi-account
-            </v-icon>
+            <v-avatar
+              color='indigo'
+              size='48'
+            >
+              <span class='white--text text-h5'>{{ user.id }}</span>
+            </v-avatar>
           </v-btn>
         </template>
-        <v-list>
-          <v-list-item
-            v-for='(item, index) in profileMenu'
-            :key='index'
-            class='pa-0'
-          >
-            <v-btn
-              :to='item.to'
-              color='black'
-              plain
-            >
-              <v-icon>
-                {{ item.icon }}
-              </v-icon>
-              {{ item.title }}
-            </v-btn>
-          </v-list-item>
-          <v-spacer></v-spacer>
-          <v-btn
-            color='black'
-            class='py-5'
-            plain
-            @click='logOut'
-          >
-              <v-icon>
-                mdi-logout-variant
-              </v-icon>
-              LogOut
-            </v-btn>
-        </v-list>
+        <v-card>
+          <v-list-item-content class='justify-center'>
+            <div class='mx-auto text-center'>
+              <v-avatar
+                color='indigo'
+              >
+                <span class='white--text text-h5'>{{ user.id }}</span>
+              </v-avatar>
+              <h3>{{ user.name }}</h3>
+              <p class='text-caption mt-1'>
+                {{ user.profile }}
+              </p>
+              <v-divider class='my-3'></v-divider>
+              <v-btn
+                depressed
+                rounded
+                text
+                to='/profile'
+              >
+                Profile
+              </v-btn>
+              <v-divider class='my-3'></v-divider>
+              <v-btn
+                depressed
+                rounded
+                text
+                @click='logOut'
+              >
+                Logout
+              </v-btn>
+            </div>
+          </v-list-item-content>
+        </v-card>
       </v-menu>
     </v-app-bar>
     <v-main>
@@ -124,18 +134,6 @@ export default {
           icon: 'mdi-chart-bubble',
           title: 'Inspire',
           to: '/inspire'
-        }
-      ],
-      profileMenu: [
-        {
-          to: '/profile',
-          title: 'Profile',
-          icon: 'mdi-account'
-        },
-        {
-          to: '/books',
-          title: 'Books',
-          icon: 'mdi-book-open-blank-variant'
         }
       ],
       miniVariant: false,
