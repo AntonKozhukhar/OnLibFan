@@ -66,7 +66,7 @@
               color='indigo'
               size='48'
             >
-              <span class='white--text text-h5'>{{ user.id }}</span>
+              <span class='white--text text-h5'>{{ initials }}</span>
             </v-avatar>
           </v-btn>
         </template>
@@ -76,9 +76,9 @@
               <v-avatar
                 color='indigo'
               >
-                <span class='white--text text-h5'>{{ user.id }}</span>
+                <span class='white--text text-h5'>{{ initials }}</span>
               </v-avatar>
-              <h3>{{ user.name }}</h3>
+              <h3>{{ user.first_name }}</h3>
               <p class='text-caption mt-1'>
                 {{ user.profile }}
               </p>
@@ -147,7 +147,8 @@ export default {
       right: true,
       rightDrawer: false,
       title: 'OneLibFans',
-      loggedUser: false
+      loggedUser: false,
+      initials: ''
     }
   },
   computed: {
@@ -161,6 +162,7 @@ export default {
   },
   created() {
     this.loggedUser = this.checkUserToken
+    this.initials = this.user.first_name.charAt(0) + this.user.last_name.charAt(0)
   },
   methods: {
     ...mapActions('users', ['logout']),

@@ -8,8 +8,15 @@
         mdi-account-circle
       </v-icon>
     </v-avatar>
+    <v-btn
+      class='mt-3'
+      plain
+      @click='changeAvatar'
+    >
+      Change avatar
+    </v-btn>
     <v-card-title>
-      {{ userName }}
+      {{ userFirstName }} {{ userLastName }}
     </v-card-title>
     <v-card-text>
       Role: {{ userRole }}
@@ -22,16 +29,24 @@ import {mapState} from 'vuex'
 
 export default {
   name: 'ProfileInfo',
+  data: () => ({
+    userFirstName: '',
+    userRole: '',
+    initials: '',
+    userLastName: ''
+  }),
   computed: {
     ...mapState('users',['user'])
   },
-  data: () => ({
-    userName: '',
-    userRole: '',
-  }),
   created() {
-    this.userName = this.user.name
+    this.userFirstName = this.user.first_name
+    this.userLastName = this.user.last_name
     this.userRole = this.user.profile
+  },
+  methods: {
+    changeAvatar() {
+
+    }
   }
 }
 </script>
