@@ -1,5 +1,4 @@
 import colors from 'vuetify/es5/util/colors'
-import helpers from './helpers'
 
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
@@ -25,6 +24,7 @@ export default {
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     '~/plugins/notifier.js',
+    '~/plugins/headers.js',
     '~/plugins/persistedState.client.js'
   ],
   
@@ -49,7 +49,6 @@ export default {
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
     baseURL: 'http://127.0.0.1:8000/api/',
-    headers: helpers.setHeaders()
   },
   
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify

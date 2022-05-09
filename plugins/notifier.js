@@ -2,7 +2,6 @@ export default ({ store }, inject) => {
   inject('notifier', {
     showMessage(response) {
       let color = 'grey'
-      let message = response.statusText
       switch (response.status) {
         case 200:
           color = 'success'
@@ -20,7 +19,7 @@ export default ({ store }, inject) => {
           color = 'grey'
           break
       }
-      message = response.data.message || message
+      const message = response.data.message || 'Something went wrong :C'
       const data = {
         message,
         color,

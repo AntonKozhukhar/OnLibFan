@@ -1,5 +1,3 @@
-import helpers from '../helpers/index'
-
 const state = () => ({
   userToken: null,
   user: {},
@@ -33,7 +31,6 @@ export const actions = {
   async login({ commit }, data) {
     try {
       const res = await this.$axios.post('login', data)
-      console.log(res)
       commit('ADD_USER', res.data.data.user)
       commit('ADD_USER_TOKEN', res.data.data.token)
       this.$notifier.showMessage(res)
@@ -41,9 +38,13 @@ export const actions = {
       this.$notifier.showMessage(e.response)
     }
   },
-  async logout({ commit }, token) {
+  async logout({ commit }) {
     try {
-      const res = await this.$axios.post('logout', { headers: helpers.headersForLogOut(token) })
+      const res = await this.$axios.post(
+        'logout',
+        {},
+        { headers: this.$headers.setHeaders() }
+      )
       commit('DELETE_USER')
       this.$notifier.showMessage(res)
     } catch (e) {

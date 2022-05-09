@@ -38,7 +38,7 @@
       <v-toolbar-title v-text='title' />
       <v-spacer />
       <v-btn
-        v-if='!loggedUser'
+        v-if='!checkUserToken'
         to='/login'
         class='ma-1'
         color='white'
@@ -147,7 +147,6 @@ export default {
       right: true,
       rightDrawer: false,
       title: 'OneLibFans',
-      loggedUser: false,
       initials: ''
     }
   },
@@ -155,19 +154,10 @@ export default {
     ...mapGetters('users', ['checkUserToken']),
     ...mapState('users', ['user', 'userToken'])
   },
-  watch: {
-    checkUserToken() {
-      this.loggedUser = this.checkUserToken
-    }
-  },
-  created() {
-    this.loggedUser = this.checkUserToken
-    this.initials = this.user.first_name.charAt(0) + this.user.last_name.charAt(0)
-  },
   methods: {
     ...mapActions('users', ['logout']),
     async logOut() {
-      await this.logout(this.userToken)
+      await this.logout()
     }
   }
 }

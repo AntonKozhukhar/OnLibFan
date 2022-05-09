@@ -7,6 +7,16 @@
     class='white--text'
   >
     {{ snackbarData.message }}
+    <template #action={attrs}>
+      <v-btn
+        color='white'
+        text
+        v-bind='attrs'
+        @click='SET_SNACKBAR_DATA({show: false})'
+      >
+        Close
+      </v-btn>
+    </template>
   </v-snackbar>
 </template>
 
