@@ -1,11 +1,10 @@
 export default ({ store }, inject) => {
   inject('notifier', {
-    SHOW_MESSAGE(response) {
+    showMessage(response) {
       let color = 'grey'
       let message = response.statusText
       switch (response.status) {
         case 200:
-          console.log('test')
           color = 'success'
           break
         case 404:
@@ -27,7 +26,7 @@ export default ({ store }, inject) => {
         color,
         show: true
       }
-      store.commit('snackbar/SHOW_MESSAGE', data)
+      store.commit('snackbar/SET_SNACKBAR_DATA', data)
     }
   })
 }

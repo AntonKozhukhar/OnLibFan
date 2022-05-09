@@ -23,30 +23,31 @@ const mutations = {
 export const actions = {
   async registration({ commit }, data) {
     try {
-      await this.$axios.post('registration', data)
+      const res = await this.$axios.post('registration', data)
+      this.CHANGE_AUTH_STATUS('login')
+      this.$notifier.showMessage(res)
     } catch (e) {
-      this.$notifier.SHOW_MESSAGE(e.response)
+      this.$notifier.showMessage(e.response)
     }
   },
   async login({ commit }, data) {
     try {
       const res = await this.$axios.post('login', data)
+      console.log(res)
       commit('ADD_USER', res.data.data.user)
       commit('ADD_USER_TOKEN', res.data.data.token)
-      this.$notifier.SHOW_MESSAGE(res)
+      this.$notifier.showMessage(res)
     } catch (e) {
-      this.$notifier.SHOW_MESSAGE(e.response)
+      this.$notifier.showMessage(e.response)
     }
   },
   async logout({ commit }, token) {
     try {
-      const res = await this.$axios.post(
-        'logout',
-        { headers: helpers.headersForLogOut(token) })
+      const res = await this.$axios.post('logout', { headers: helpers.headersForLogOut(token) })
       commit('DELETE_USER')
-      this.$notifier.SHOW_MESSAGE(res)
+      this.$notifier.showMessage(res)
     } catch (e) {
-      this.$notifier.SHOW_MESSAGE(e.response)
+      this.$notifier.showMessage(e.response)
     }
   }
 }

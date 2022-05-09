@@ -7,5 +7,5 @@ export const state = () => ({
 })
 
 export const mutations = {
-  SHOW_MESSAGE: (state, data) => state.snackbarData = data
+  SET_SNACKBAR_DATA: (state, data) => state.snackbarData = data
 }

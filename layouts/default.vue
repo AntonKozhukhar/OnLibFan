@@ -1,5 +1,6 @@
 <template>
   <v-app dark>
+    <message-snackbar />
     <v-system-bar
       height='30'
     ></v-system-bar>
@@ -30,17 +31,18 @@
     <v-app-bar
       src='https://about.proquest.com/globalassets/proquest/media/images/decrotive/oldbooks.jpg'
       :clipped-left='clipped'
-      fixed app
+      fixed
+      app
     >
       <v-app-bar-nav-icon @click.stop='drawer = !drawer' />
       <v-toolbar-title v-text='title' />
       <v-spacer />
       <v-btn
+        v-if='!loggedUser'
         to='/login'
         class='ma-1'
         color='white'
         plain
-        v-if='!loggedUser'
       >
         Login
         <v-icon>
@@ -48,13 +50,13 @@
         </v-icon>
       </v-btn>
       <v-menu
+        v-else
         bottom
         min-width='200px'
         rounded
-        v-else
         offset-y
       >
-        <template v-slot:activator='{ on }'>
+        <template #activator={on}>
           <v-btn
             icon
             x-large
@@ -108,17 +110,22 @@
         <Nuxt />
       </v-container>
     </v-main>
-    <v-footer :absolute='!fixed' app>
+    <v-footer
+      :absolute='!fixed'
+      app
+    >
       <span>&copy; {{ new Date().getFullYear() }}</span>
     </v-footer>
   </v-app>
 </template>
 
 <script>
-import {mapActions, mapGetters, mapState} from 'vuex'
+import { mapActions, mapGetters, mapState } from 'vuex'
+import MessageSnackbar from '~/components/MessageSnackbar'
 
 export default {
   name: 'DefaultLayout',
+  components: { MessageSnackbar },
   data() {
     return {
       clipped: false,

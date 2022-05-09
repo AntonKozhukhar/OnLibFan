@@ -35,7 +35,7 @@
         class='pa-0'
         color='primary'
         plain
-        @click='changeAuthStatus'
+        @click="CHANGE_AUTH_STATUS('login')"
       >
         HAVE ACCOUNT?
       </v-btn>
@@ -85,18 +85,8 @@ export default {
     ...mapMutations('users', ['CHANGE_AUTH_STATUS']),
     async register() {
       this.registerLoader = true
-      try {
-        if (this.registerData.password === this.confirmPassword) {
-          await this.registration(this.registerData)
-          this.CHANGE_AUTH_STATUS('login')
-        }
-      } catch {
-        this.registerLoader = false
-      }
+      await this.registration(this.registerData)
       this.registerLoader = false
-    },
-    changeAuthStatus() {
-      this.CHANGE_AUTH_STATUS('login')
     }
   }
 }
