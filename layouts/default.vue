@@ -144,16 +144,16 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('users', ['chekUserToken']),
+    ...mapGetters('users', ['checkUserToken']),
     ...mapState('users', ['user', 'userToken'])
   },
   watch: {
-    chekUserToken() {
-      this.loggedUser = this.chekUserToken
+    checkUserToken() {
+      this.loggedUser = this.checkUserToken
     }
   },
   created() {
-    this.loggedUser = this.chekUserToken
+    this.loggedUser = this.checkUserToken
   },
   methods: {
     ...mapActions('users', ['logout']),

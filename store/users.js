@@ -7,7 +7,7 @@ const state = () => ({
 })
 
 const getters = {
-  chekUserToken: ({userToken}) => !!userToken,
+  checkUserToken: ({ userToken }) => !!userToken
 }
 
 const mutations = {
@@ -25,7 +25,7 @@ export const actions = {
     try {
       await this.$axios.post('registration', data)
     } catch (e) {
-      this.$notifier.showMessage(e.response)
+      this.$notifier.SHOW_MESSAGE(e.response)
     }
   },
   async login({ commit }, data) {
@@ -33,19 +33,20 @@ export const actions = {
       const res = await this.$axios.post('login', data)
       commit('ADD_USER', res.data.data.user)
       commit('ADD_USER_TOKEN', res.data.data.token)
+      this.$notifier.SHOW_MESSAGE(res)
     } catch (e) {
-      this.$notifier.showMessage(e.response)
+      this.$notifier.SHOW_MESSAGE(e.response)
     }
   },
   async logout({ commit }, token) {
     try {
-      await this.$axios.post(
+      const res = await this.$axios.post(
         'logout',
-        {},
-        {headers: helpers.headersForLogOut(token)})
+        { headers: helpers.headersForLogOut(token) })
       commit('DELETE_USER')
+      this.$notifier.SHOW_MESSAGE(res)
     } catch (e) {
-      this.$notifier.showMessage(e.response)
+      this.$notifier.SHOW_MESSAGE(e.response)
     }
   }
 }

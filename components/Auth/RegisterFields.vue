@@ -53,7 +53,7 @@
 </template>
 
 <script>
-import {mapActions, mapMutations} from 'vuex'
+import { mapActions, mapMutations } from 'vuex'
 
 export default {
   name: 'RegisterFields',
@@ -62,27 +62,27 @@ export default {
       first_name: '',
       last_name: '',
       email: '',
-      password: '',
+      password: ''
     },
     haveAccount: true,
     registerLoader: false,
     nameRules: [
       v => !!v || 'Name is required',
-      v => v.length <= 10 || 'Name must be less than 10 characters',
+      v => v.length <= 10 || 'Name must be less than 10 characters'
     ],
     emailRules: [
       v => !!v || 'E-mail is required',
-      v => /.+@.+/.test(v) || 'E-mail must be valid',
+      v => /.+@.+/.test(v) || 'E-mail must be valid'
     ],
     passwordRules: [
       v => !!v || 'Password is required',
-      v => v.length <= 10 || 'Password must be less than 10 characters',
+      v => v.length <= 10 || 'Password must be less than 10 characters'
     ],
-    confirmPassword: '',
+    confirmPassword: ''
   }),
   methods: {
-    ...mapActions('users',['registration']),
-    ...mapMutations('users',['CHANGE_AUTH_STATUS']),
+    ...mapActions('users', ['registration']),
+    ...mapMutations('users', ['CHANGE_AUTH_STATUS']),
     async register() {
       this.registerLoader = true
       try {
@@ -90,7 +90,9 @@ export default {
           await this.registration(this.registerData)
           this.CHANGE_AUTH_STATUS('login')
         }
-      } catch { this.registerLoader = false }
+      } catch {
+        this.registerLoader = false
+      }
       this.registerLoader = false
     },
     changeAuthStatus() {
