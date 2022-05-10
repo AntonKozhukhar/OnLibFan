@@ -5,7 +5,8 @@
         color='indigo'
         size='120'
       >
-        <v-img v-if='file' :src='url'></v-img>
+        <v-img v-if='user.avatar' :src='user.avatar'></v-img>
+        <v-img v-else-if='file' :src='url'></v-img>
         <v-icon v-else dark>
           mdi-account-circle
         </v-icon>
@@ -36,7 +37,7 @@
 </template>
 
 <script>
-import {mapState} from 'vuex'
+import {mapMutations, mapState} from 'vuex'
 
 export default {
   name: 'ProfileInfo',
@@ -61,9 +62,9 @@ export default {
     this.userRole = this.user.profile
   },
   methods: {
+    ...mapMutations('users',['SAVE_USER_AVATAR']),
     saveChanges() {
-      console.log(this.file, 'file')
-      console.log(this.url, 'url')
+      this.SAVE_USER_AVATAR(this.url)
     }
   }
 }

@@ -15,7 +15,8 @@ const mutations = {
     state.user = {}
     state.userToken = null
   },
-  CHANGE_AUTH_STATUS: (state, desiredStatus) => state.authStatus = desiredStatus
+  CHANGE_AUTH_STATUS: (state, desiredStatus) => state.authStatus = desiredStatus,
+  SAVE_USER_AVATAR: (state, selectedAvatar) => state.user.avatar = selectedAvatar
 }
 
 export const actions = {

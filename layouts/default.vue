@@ -35,7 +35,13 @@
       app
     >
       <v-app-bar-nav-icon @click.stop='drawer = !drawer' />
-      <v-toolbar-title v-text='title' />
+      <v-btn plain color='white' to='/'>
+        {{ title }}
+      </v-btn>
+<!--      <v-title to='/'>-->
+<!--        {{ title }}-->
+<!--      </v-title>-->
+<!--      <v-toolbar-title to='/' v-text='title' />-->
       <v-spacer />
       <v-btn
         v-if='!checkUserToken'
@@ -66,7 +72,8 @@
               color='indigo'
               size='48'
             >
-              <span class='white--text text-h5'>{{ initials }}</span>
+              <v-img v-if='user.avatar' :src='user.avatar'></v-img>
+              <span v-else class='white--text text-h5'>{{ initials }}</span>
             </v-avatar>
           </v-btn>
         </template>
@@ -76,9 +83,10 @@
               <v-avatar
                 color='indigo'
               >
-                <span class='white--text text-h5'>{{ initials }}</span>
+               <v-img v-if='user.avatar' :src='user.avatar'></v-img>
+                <span v-else class='white--text text-h5'>{{ initials }}</span>
               </v-avatar>
-              <h3>{{ user.first_name }}</h3>
+              <h3>{{ initials }}</h3>
               <p class='text-caption mt-1'>
                 {{ user.profile }}
               </p>
@@ -120,12 +128,12 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapState } from 'vuex'
+import {mapActions, mapGetters, mapState} from 'vuex'
 import MessageSnackbar from '~/components/MessageSnackbar'
 
 export default {
   name: 'DefaultLayout',
-  components: { MessageSnackbar },
+  components: {MessageSnackbar},
   data() {
     return {
       clipped: false,
@@ -158,7 +166,11 @@ export default {
     ...mapActions('users', ['logout']),
     async logOut() {
       await this.logout()
+      await this.$router.push({path: '/'})
     }
+  },
+  created() {
+    this.initials = this.user.first_name.slice(0, 1) + this.user.last_name.slice(0, 1)
   }
 }
 </script>
