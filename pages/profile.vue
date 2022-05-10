@@ -11,9 +11,11 @@
 <script>
 import ProfileInfo from '~/components/Profile/ProfileInfo'
 import ProfileBooksList from '~/components/Profile/ProfileBooksList'
+
 export default {
   name: 'ProfilePage',
-  components: {ProfileBooksList, ProfileInfo},
+  components: { ProfileBooksList, ProfileInfo },
+  middleware: ['auth']
 }
 </script>
 

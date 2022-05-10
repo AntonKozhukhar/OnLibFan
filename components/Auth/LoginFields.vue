@@ -2,16 +2,16 @@
   <v-container>
     <v-text-field
       v-model='loginData.email'
-      required
       :rules='emailRules'
       label='Email'
+      required
     >
     </v-text-field>
     <v-text-field
       v-model='loginData.password'
-      required
       :rules='passwordRules'
       label='Password'
+      required
     >
     </v-text-field>
     <v-row class='justify-space-between px-3 py-2'>
@@ -24,10 +24,10 @@
         No account?
       </v-btn>
       <v-btn
+        :loading='loginLoader'
         class='pa-0'
         color='green'
         plain
-        :loading='loginLoader'
         @click='logIn'
       >
         Submit

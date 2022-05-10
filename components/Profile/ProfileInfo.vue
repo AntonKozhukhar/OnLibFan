@@ -12,16 +12,16 @@
         </v-icon>
       </v-avatar>
       <v-row>
-      <v-file-input
-        accept='image/png, image/jpeg, image/bmp'
-        placeholder='Pick an avatar'
-        prepend-icon='mdi-camera'
-        label='Avatar'
-        hide-input
-        class='d-flex justify-center'
-        v-model='file'
-      >
-      </v-file-input>
+        <v-file-input
+          v-model='file'
+          accept='image/png, image/jpeg, image/bmp'
+          class='d-flex justify-center'
+          hide-input
+          label='Avatar'
+          placeholder='Pick an avatar'
+          prepend-icon='mdi-camera'
+        >
+        </v-file-input>
       </v-row>
       <v-card-title>
         {{ userFirstName }} {{ userLastName }}
@@ -29,7 +29,7 @@
       <v-card-text>
         Role: {{ userRole }}
       </v-card-text>
-      <v-btn plain color='green' @click='saveChanges'>
+      <v-btn color='green' plain @click='saveChanges'>
         Save Changes
       </v-btn>
     </v-card>
@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import {mapMutations, mapState} from 'vuex'
+import { mapMutations, mapState } from 'vuex'
 
 export default {
   name: 'ProfileInfo',
@@ -62,7 +62,7 @@ export default {
     this.userRole = this.user.profile
   },
   methods: {
-    ...mapMutations('users',['SAVE_USER_AVATAR']),
+    ...mapMutations('users', ['SAVE_USER_AVATAR']),
     saveChanges() {
       this.SAVE_USER_AVATAR(this.url)
     }

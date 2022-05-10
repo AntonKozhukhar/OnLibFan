@@ -5,25 +5,27 @@ const state = () => ({
 })
 
 const getters = {
-  checkUserToken: ({ userToken }) => !!userToken
+  isUserLogged: ({ userToken }) => !!userToken
 }
 
 const mutations = {
-  ADD_USER: (state, user) => state.user = user,
-  ADD_USER_TOKEN: (state, token) => state.userToken = token,
+  ADD_USER: (state, user) => (state.user = user),
+  ADD_USER_TOKEN: (state, token) => (state.userToken = token),
   DELETE_USER: (state) => {
     state.user = {}
     state.userToken = null
   },
-  CHANGE_AUTH_STATUS: (state, desiredStatus) => state.authStatus = desiredStatus,
-  SAVE_USER_AVATAR: (state, selectedAvatar) => state.user.avatar = selectedAvatar
+  CHANGE_AUTH_STATUS: (state, desiredStatus) =>
+    (state.authStatus = desiredStatus),
+  SAVE_USER_AVATAR: (state, selectedAvatar) =>
+    (state.user.avatar = selectedAvatar)
 }
 
 export const actions = {
   async registration({ commit }, data) {
     try {
       const res = await this.$axios.post('registration', data)
-      commit('CHANGE_AUTH_STATUS','login')
+      commit('CHANGE_AUTH_STATUS', 'login')
       this.$notifier.showMessage(res)
     } catch (e) {
       this.$notifier.showMessage(e.response)
