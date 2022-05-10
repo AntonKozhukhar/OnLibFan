@@ -22,7 +22,7 @@ export const actions = {
   async registration({ commit }, data) {
     try {
       const res = await this.$axios.post('registration', data)
-      this.CHANGE_AUTH_STATUS('login')
+      commit('CHANGE_AUTH_STATUS','login')
       this.$notifier.showMessage(res)
     } catch (e) {
       this.$notifier.showMessage(e.response)

@@ -1,26 +1,37 @@
 <template>
-  <v-row class='d-flex flex-column align-center pa-6'>
-    <v-avatar
-      color='indigo'
-      size='120'
-    >
-      <v-icon dark>
-        mdi-account-circle
-      </v-icon>
-    </v-avatar>
-    <v-btn
-      class='mt-3'
-      plain
-      @click='changeAvatar'
-    >
-      Change avatar
-    </v-btn>
-    <v-card-title>
-      {{ userFirstName }} {{ userLastName }}
-    </v-card-title>
-    <v-card-text>
-      Role: {{ userRole }}
-    </v-card-text>
+  <v-row class='d-flex flex-column pa-6'>
+    <v-card class='d-flex flex-column align-center'>
+      <v-avatar
+        color='indigo'
+        size='120'
+      >
+        <v-img v-if='file' :src='url'></v-img>
+        <v-icon v-else dark>
+          mdi-account-circle
+        </v-icon>
+      </v-avatar>
+      <v-row>
+      <v-file-input
+        accept='image/png, image/jpeg, image/bmp'
+        placeholder='Pick an avatar'
+        prepend-icon='mdi-camera'
+        label='Avatar'
+        hide-input
+        class='d-flex justify-center'
+        v-model='file'
+      >
+      </v-file-input>
+      </v-row>
+      <v-card-title>
+        {{ userFirstName }} {{ userLastName }}
+      </v-card-title>
+      <v-card-text>
+        Role: {{ userRole }}
+      </v-card-text>
+      <v-btn plain color='green' @click='saveChanges'>
+        Save Changes
+      </v-btn>
+    </v-card>
   </v-row>
 </template>
 
@@ -33,10 +44,16 @@ export default {
     userFirstName: '',
     userRole: '',
     initials: '',
-    userLastName: ''
+    userLastName: '',
+    file: null,
+    content: null
   }),
   computed: {
-    ...mapState('users',['user'])
+    ...mapState('users', ['user']),
+    url() {
+      if (!this.file) return
+      return URL.createObjectURL(this.file)
+    }
   },
   created() {
     this.userFirstName = this.user.first_name
@@ -44,13 +61,16 @@ export default {
     this.userRole = this.user.profile
   },
   methods: {
-    changeAvatar() {
-
+    saveChanges() {
+      console.log(this.file, 'file')
+      console.log(this.url, 'url')
     }
   }
 }
 </script>
 
 <style scoped>
-
+.v-application--is-ltr .v-input__prepend-outer {
+  margin-right: 0 !important;
+}
 </style>
