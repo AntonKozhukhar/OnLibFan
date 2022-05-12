@@ -19,7 +19,7 @@
         class='pa-0'
         color='red'
         plain
-        @click='changeAuthStatus'
+        @click='changeauthAction'
       >
         No account?
       </v-btn>
@@ -44,8 +44,8 @@ export default {
   data: () => ({
     loginLoader: false,
     loginData: {
-      email: '',
-      password: ''
+      email: 'anton.kozhukhar@gmail.com',
+      password: '123'
     },
     emailRules: [
       v => !!v || 'E-mail is required',
@@ -61,15 +61,11 @@ export default {
     ...mapMutations('users', ['CHANGE_AUTH_STATUS']),
     async logIn() {
       this.loginLoader = true
-      try {
-        await this.login(this.loginData)
-        await this.$router.push({ path: '/' })
-      } catch {
-        this.loginLoader = false
-      }
+      await this.login(this.loginData)
+      await this.$router.push({ path: '/' })
       this.loginLoader = false
     },
-    changeAuthStatus() {
+    changeauthAction() {
       this.CHANGE_AUTH_STATUS('registration')
     }
   }

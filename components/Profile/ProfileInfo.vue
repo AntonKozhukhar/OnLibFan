@@ -5,18 +5,16 @@
         {{ userFirstName }} {{ userLastName }}
       </v-card-title>
       <v-avatar
+        class='ma-auto'
         color='indigo'
         size='120'
-        class='ma-auto'
       >
         <v-img v-if='profileFields.img' :src='url'></v-img>
         <v-icon v-else dark>
           mdi-account-circle
         </v-icon>
       </v-avatar>
-      <v-form
-        ref='profileForm'
-      >
+      <v-form ref='profileForm'>
         <v-file-input
           v-model='profileFields.img'
           accept='image/png, image/jpeg, image/bmp'
@@ -27,7 +25,7 @@
           prepend-icon='mdi-camera'
         >
         </v-file-input>
-        <v-text-field full-width v-model='profileFields.phone' label='Phone'></v-text-field>
+        <v-text-field v-model='profileFields.phone' full-width label='Phone'></v-text-field>
         <v-text-field v-model='profileFields.city' label='City'></v-text-field>
         <v-text-field v-model='profileFields.country' label='Country'></v-text-field>
         <v-text-field v-model='profileFields.first_name' label='First Name'></v-text-field>
@@ -45,7 +43,7 @@
 </template>
 
 <script>
-import { mapMutations, mapState } from 'vuex'
+import { mapMutations } from 'vuex'
 
 export default {
   name: 'ProfileInfo',
@@ -70,16 +68,15 @@ export default {
     }
   }),
   computed: {
-    ...mapState('users', ['user']),
     url() {
       if (!this.profileFields.img) return
       return URL.createObjectURL(this.profileFields.img)
     }
   },
   created() {
-    this.userFirstName = this.user.first_name
-    this.userLastName = this.user.last_name
-    this.userRole = this.user.profile
+    this.userFirstName = this.$auth.user.first_name
+    this.userLastName = this.$auth.user.last_name
+    this.userRole = this.$auth.user.profile
   },
   methods: {
     ...mapMutations('users', ['SAVE_USER_AVATAR']),

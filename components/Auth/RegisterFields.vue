@@ -40,10 +40,10 @@
         HAVE ACCOUNT?
       </v-btn>
       <v-btn
+        :loading='registerLoader'
         class='pa-0'
         color='green'
         plain
-        :loading='registerLoader'
         @click='register'
       >
         Submit
@@ -67,7 +67,7 @@ export default {
     haveAccount: true,
     registerLoader: false,
     nameRules: [
-      v => !!v || 'Name is required',
+      v => !!v || 'Name is required'
     ],
     emailRules: [
       v => !!v || 'E-mail is required',

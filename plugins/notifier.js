@@ -1,6 +1,6 @@
 export default ({ store }, inject) => {
   inject('notifier', {
-    showMessage(response) {
+    showResponseMessage(response) {
       let color = 'grey'
       switch (response.status) {
         case 200:
@@ -26,6 +26,15 @@ export default ({ store }, inject) => {
         show: true
       }
       store.commit('snackbar/SET_SNACKBAR_DATA', data)
+    },
+    showMessage(message, color) {
+      const data = {
+        message,
+        color,
+        show: true
+      }
+      store.commit('snackbar/SET_SNACKBAR_DATA', data)
     }
   })
+  
 }

@@ -2,7 +2,7 @@ export const state = () => ({
   snackbarData: {
     show: false,
     color: 'grey',
-    message: '',
+    message: ''
   }
 })
 

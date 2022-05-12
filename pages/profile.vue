@@ -15,7 +15,7 @@ import ProfileBooksList from '~/components/Profile/ProfileBooksList'
 export default {
   name: 'ProfilePage',
   components: { ProfileBooksList, ProfileInfo },
-  middleware: ['auth']
+  middleware: 'auth'
 }
 </script>
 

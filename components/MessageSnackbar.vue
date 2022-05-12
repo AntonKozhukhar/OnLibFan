@@ -1,10 +1,11 @@
 <template>
   <v-snackbar
     v-model='snackbarData.show'
-    top
-    right
     :color='snackbarData.color'
+    bottom
     class='white--text'
+    right
+    shaped
   >
     {{ snackbarData.message }}
     <template #action={attrs}>
@@ -27,11 +28,8 @@ export default {
   name: 'MessageSnackbar',
   computed: mapState('snackbar', ['snackbarData']),
   watch: {
-    snackbarData: {
-      handler() {
-        if (this.snackbarData.show) setTimeout(() => this.SET_SNACKBAR_DATA({ show: false }), 4000)
-      },
-      deep: true
+    'snackbarData.show'() {
+      if (this.snackbarData.show) setTimeout(() => this.SET_SNACKBAR_DATA({ show: false }), 4000)
     }
   },
   methods: mapMutations('snackbar', ['SET_SNACKBAR_DATA'])
