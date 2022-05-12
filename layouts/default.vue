@@ -36,10 +36,6 @@
       <v-btn color='white' plain to='/'>
         {{ title }}
       </v-btn>
-      <!--      <v-title to='/'>-->
-      <!--        {{ title }}-->
-      <!--      </v-title>-->
-      <!--      <v-toolbar-title to='/' v-text='title' />-->
       <v-spacer />
       <v-btn
         v-if='!isUserLogged'
@@ -138,6 +134,11 @@ export default {
     async logOut() {
       await this.logout()
       await this.$router.push({ path: '/' })
+    }
+  },
+  created() {
+    if(this.user.first_name && this.user.last_name) {
+      this.initials = this.user.first_name.slice(0, 1) + this.user.last_name.slice(0, 1)
     }
   }
 }
