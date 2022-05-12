@@ -23,6 +23,7 @@ export const actions = {
       await this.$auth.setUserToken(res.data.data.token)
       this.$auth.setUser(res.data.data.user)
       this.$notifier.showMessage('Login successfully!', 'success')
+      await this.$router.push({ path: '/' })
     } catch (e) {
       this.$notifier.showResponseMessage(e.response)
     }

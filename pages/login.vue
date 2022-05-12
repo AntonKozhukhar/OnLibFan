@@ -4,10 +4,8 @@
       <span v-if="authAction === 'login'">Login</span>
       <span v-else>Registration</span>
     </v-card-title>
-    <v-form ref='form' v-model='valid'>
-      <login-fields v-if="authAction==='login'"></login-fields>
-      <register-fields v-else></register-fields>
-    </v-form>
+    <login-fields v-if="authAction==='login'"></login-fields>
+    <register-fields v-else></register-fields>
   </v-card>
 </template>
 
@@ -21,9 +19,6 @@ export default {
   components: { LoginFields, RegisterFields },
   layout: 'auth',
   middleware: 'auth',
-  data: () => ({
-    valid: false
-  }),
   computed: {
     ...mapState('users', ['authAction'])
   }
