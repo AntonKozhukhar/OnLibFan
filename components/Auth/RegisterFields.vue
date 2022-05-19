@@ -97,8 +97,8 @@ export default {
     }
   },
   methods: {
-    ...mapActions('users', ['registration']),
-    ...mapMutations('users', ['CHANGE_AUTH_STATUS']),
+    ...mapActions('usersStore', ['registration']),
+    ...mapMutations('usersStore', ['CHANGE_AUTH_STATUS']),
     async register() {
       if (this.confirmPassword === this.registerData.password && this.$refs.regForm.validate()) {
         this.registerLoader = true

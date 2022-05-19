@@ -25,7 +25,7 @@ export default ({ store }, inject) => {
         color,
         show: true
       }
-      store.commit('snackbar/SET_SNACKBAR_DATA', data)
+      store.commit('snackbarStore/SET_SNACKBAR_DATA', data)
     },
     showMessage(message, color) {
       const data = {
@@ -33,7 +33,7 @@ export default ({ store }, inject) => {
         color,
         show: true
       }
-      store.commit('snackbar/SET_SNACKBAR_DATA', data)
+      store.commit('snackbarStore/SET_SNACKBAR_DATA', data)
     }
   })
   

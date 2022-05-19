@@ -26,12 +26,12 @@ import { mapMutations, mapState } from 'vuex'
 
 export default {
   name: 'MessageSnackbar',
-  computed: mapState('snackbar', ['snackbarData']),
+  computed: mapState('snackbarStore', ['snackbarData']),
   watch: {
     'snackbarData.show'() {
       if (this.snackbarData.show) setTimeout(() => this.SET_SNACKBAR_DATA({ show: false }), 4000)
     }
   },
-  methods: mapMutations('snackbar', ['SET_SNACKBAR_DATA'])
+  methods: mapMutations('snackbarStore', ['SET_SNACKBAR_DATA'])
 }
 </script>

@@ -63,8 +63,8 @@ export default {
     ]
   }),
   methods: {
-    ...mapActions('users', ['login']),
-    ...mapMutations('users', ['CHANGE_AUTH_STATUS']),
+    ...mapActions('usersStore', ['login']),
+    ...mapMutations('usersStore', ['CHANGE_AUTH_STATUS']),
     async logIn() {
       if (this.$refs.loginForm.validate()) {
         this.loginLoader = true

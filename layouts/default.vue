@@ -77,9 +77,24 @@
       </v-menu>
     </v-app-bar>
     <v-main>
+      <v-breadcrumbs :items='crumbs'>
+        <template #divider>
+          <v-icon>mdi-chevron-right</v-icon>
+        </template>
+        <template #item={item}>
+          <v-breadcrumbs-item
+            :disabled='item.disabled'
+            :to='item.to'
+            nuxt
+          >
+            {{ item.text }}
+          </v-breadcrumbs-item>
+        </template>
+      </v-breadcrumbs>
       <v-container>
         <Nuxt />
       </v-container>
+      {{ crumbs }}
     </v-main>
     <v-footer :absolute='!fixed' app>
       <span>&copy; {{ new Date().getFullYear() }}</span>
@@ -101,14 +116,14 @@ export default {
       fixed: false,
       items: [
         {
-          icon: 'mdi-apps',
-          title: 'Welcome',
+          icon: 'mdi-home',
+          title: 'Home',
           to: '/'
         },
         {
           icon: 'mdi-chart-bubble',
-          title: 'Inspire',
-          to: '/inspire'
+          title: 'Genres',
+          to: '/genres'
         }
       ],
       miniVariant: false,
@@ -118,13 +133,31 @@ export default {
       initials: ''
     }
   },
-  mounted() {
-    if (this.$auth.user.first_name && this.$auth.user.last_name) {
-      this.initials = this.$auth.user.first_name.slice(0, 1) + this.$auth.user.last_name.slice(0, 1)
+  computed: {
+    crumbs() {
+      if (this.$route.fullPath.length <= 1) return
+      const fullPath = this.$route.fullPath
+      const params = fullPath.substring(1)
+        .split('/')
+      const crumbs = [{
+        text: 'Home',
+        disabled: false,
+        to: '/'
+      }]
+      console.log(this.$route.path)
+      params.forEach(el => {
+        crumbs.push({
+          text: el[0].toUpperCase() + el.slice(1),
+          disabled: false,
+          to: `/${el}`
+        })
+      })
+      crumbs[crumbs.length - 1].disabled = true
+      return crumbs
     }
   },
   methods: {
-    ...mapActions('users', ['logout']),
+    ...mapActions('usersStore', ['logout']),
     async logOut() {
       await this.logout()
       await this.$router.push({ path: '/' })

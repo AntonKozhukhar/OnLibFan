@@ -11,6 +11,7 @@
       <v-btn
         color='white'
         icon
+        nuxt
         to='/'
       >
         <v-icon>mdi-export</v-icon>

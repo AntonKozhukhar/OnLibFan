@@ -79,7 +79,7 @@ export default {
     this.userRole = this.$auth.user.profile
   },
   methods: {
-    ...mapMutations('users', ['SAVE_USER_AVATAR']),
+    ...mapMutations('usersStore', ['SAVE_USER_AVATAR']),
     saveChanges(e, profile) {
       console.log(profile)
       // this.SAVE_USER_AVATAR(this.url)

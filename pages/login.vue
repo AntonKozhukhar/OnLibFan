@@ -20,7 +20,7 @@ export default {
   layout: 'auth',
   middleware: 'auth',
   computed: {
-    ...mapState('users', ['authAction'])
+    ...mapState('usersStore', ['authAction'])
   }
 }
 </script>
