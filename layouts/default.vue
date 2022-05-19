@@ -103,7 +103,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapMutations } from 'vuex'
 import MessageSnackbar from '~/components/MessageSnackbar'
 
 export default {
@@ -155,14 +155,27 @@ export default {
       return crumbs
     }
   },
+  watch: {
+    '$auth.user': {
+      handler() {
+        if (this.initials) {
+          this.initials = this.$auth.user.first_name.split('')[0] + this.$auth.user.last_name.split('')[0]
+        }
+      }
+    },
+    deep: true,
+  },
+  mounted() {
+    this.initials = this.$auth.user.first_name.split('')[0] + this.$auth.user.last_name.split('')[0]
+  },
   methods: {
     ...mapActions('usersStore', ['logout']),
+    ...mapMutations('usersStore', ['CHANGE_INITIALS']),
     async logOut() {
       await this.logout()
       await this.$router.push({ path: '/' })
     }
-  }
-
+  },
 }
 </script>
 
