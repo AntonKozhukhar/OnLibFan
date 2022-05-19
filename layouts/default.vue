@@ -144,7 +144,6 @@ export default {
         disabled: false,
         to: '/'
       }]
-      console.log(this.$route.path)
       params.forEach(el => {
         crumbs.push({
           text: el[0].toUpperCase() + el.slice(1),
@@ -166,3 +165,25 @@ export default {
 
 }
 </script>
+
+<style lang="scss">
+  ::-webkit-scrollbar {
+  width: 4px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #c9dfe0;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #006e74;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #001415;
+}
+</style>
