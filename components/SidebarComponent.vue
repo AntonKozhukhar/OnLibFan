@@ -3,7 +3,6 @@
     v-model='showSideBar'
     app
     fixed
-    touchless
   >
     <v-list>
       <v-list-item
@@ -11,6 +10,7 @@
         :key='i'
         :to='item.to'
         exact
+        nuxt
         router
       >
         <v-list-item-action>
@@ -25,22 +25,20 @@
 </template>
 
 <script>
-import { mapState, mapMutations, mapGetters } from 'vuex';
+import { mapMutations, mapState } from 'vuex'
+
 export default {
-  name: 'SideBarComponent',
+  name: 'SidebarComponent',
   props: {
-    'items': {
+    items: {
       type: Array,
       default: Array
     }
   },
   data: () => ({
-    showSideBar: true
+    showSideBar: false
   }),
-  computed: {
-    ...mapState(['sidebarStatus']),
-    ...mapGetters(['getSidebarStatus'])
-  },
+  computed: mapState(['sidebarStatus']),
   watch: {
     sidebarStatus() {
       this.showSideBar = this.sidebarStatus
@@ -49,12 +47,6 @@ export default {
       this.SET_SIDEBAR_STATUS(newVal)
     }
   },
-  methods: {
-    ...mapMutations(['SET_SIDEBAR_STATUS'])
-  }
+  methods: mapMutations(['SET_SIDEBAR_STATUS'])
 }
 </script>
-
-<style lang="scss">
-
-</style>

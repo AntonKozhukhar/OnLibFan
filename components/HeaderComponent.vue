@@ -5,7 +5,7 @@
     src='https://about.proquest.com/globalassets/proquest/media/images/decrotive/oldbooks.jpg'
   >
     <v-app-bar-nav-icon @click='toggleSideBar' />
-    <v-btn color='white' plain to='/'>
+    <v-btn color='white' nuxt plain to='/'>
       {{ title }}
     </v-btn>
     <v-spacer />
@@ -14,7 +14,7 @@
       class='ma-1'
       color='white'
       plain
-      to='/login'
+      :to="{name: 'login'}"
     >
       Login
       <v-icon> mdi-login</v-icon>
@@ -51,16 +51,16 @@
 </template>
 
 <script>
-import { mapActions, mapMutations, mapState, mapGetters } from 'vuex'
+import { mapActions, mapMutations, mapState } from 'vuex'
+
 export default {
-  name: 'AppBarComponent',
+  name: 'HeaderComponent',
   data: () => ({
     title: 'OneLibFans',
-    initials: '',
+    initials: ''
   }),
   computed: {
-    ...mapState(['sidebarStatus']),
-    ...mapGetters(['getSidebarStatus'])
+    ...mapState(['sidebarStatus'])
   },
   watch: {
     '$auth.user': {
@@ -69,13 +69,13 @@ export default {
           this.initials = this.$auth.user.first_name.split('')[0] + this.$auth.user.last_name.split('')[0]
         }
       },
-      deep: true,
-    },
+      deep: true
+    }
   },
   mounted() {
     this.initials = this.$auth.user.first_name.split('')[0] + this.$auth.user.last_name.split('')[0]
   },
-  methods:{
+  methods: {
     ...mapActions('usersStore', ['logout']),
     ...mapMutations(['SET_SIDEBAR_STATUS']),
     async logOut() {

@@ -1,24 +1,23 @@
 <template>
   <v-app dark>
-    <message-snackbar />
-    <v-system-bar height='30'></v-system-bar>
-    <SideBar :items='items' />
-    <AppBar />
+    <MessageSnackbar />
+    <SidebarComponent :items='items' />
+    <HeaderComponent />
     <v-main>
-      <v-breadcrumbs :items='crumbs'>
-        <template #divider>
-          <v-icon>mdi-chevron-right</v-icon>
-        </template>
-        <template #item={item}>
-          <v-breadcrumbs-item
-            :disabled='item.disabled'
-            :to='item.to'
-            nuxt
-          >
-            {{ item.text }}
-          </v-breadcrumbs-item>
-        </template>
-      </v-breadcrumbs>
+      <!--      <v-breadcrumbs :items='crumbs'>-->
+      <!--        <template #divider>-->
+      <!--          <v-icon>mdi-chevron-right</v-icon>-->
+      <!--        </template>-->
+      <!--        <template #item={item}>-->
+      <!--          <v-breadcrumbs-item-->
+      <!--            :disabled='item.disabled'-->
+      <!--            :to='item.to'-->
+      <!--            nuxt-->
+      <!--          >-->
+      <!--            {{ item.text }}-->
+      <!--          </v-breadcrumbs-item>-->
+      <!--        </template>-->
+      <!--      </v-breadcrumbs>-->
       <v-container>
         <Nuxt />
       </v-container>
@@ -30,8 +29,13 @@
 </template>
 
 <script>
+import HeaderComponent from '~/components/HeaderComponent'
+import SidebarComponent from '~/components/SidebarComponent'
+import MessageSnackbar from '~/components/MessageSnackbar'
+
 export default {
   name: 'DefaultLayout',
+  components: { MessageSnackbar, SidebarComponent, HeaderComponent },
   data() {
     return {
       drawer: false,
@@ -39,21 +43,21 @@ export default {
         {
           icon: 'mdi-home',
           title: 'Home',
-          to: '/'
+          to: { name: 'index' }
         },
         {
           icon: 'mdi-chart-bubble',
           title: 'Genres',
-          to: '/genres'
+          to: { name: 'genres' }
         }
       ]
     }
-  },
+  }
 }
 </script>
 
-<style lang="scss">
-  ::-webkit-scrollbar {
+<style lang='scss'>
+::-webkit-scrollbar {
   width: 4px;
 }
 
