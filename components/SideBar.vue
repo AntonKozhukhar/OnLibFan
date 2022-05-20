@@ -3,6 +3,7 @@
     v-model='showSideBar'
     app
     fixed
+    touchless
   >
     <v-list>
       <v-list-item
@@ -24,27 +25,32 @@
 </template>
 
 <script>
+import { mapState, mapMutations, mapGetters } from 'vuex';
 export default {
   name: 'SideBarComponent',
   props: {
     'items': {
       type: Array,
       default: Array
-    },
-    'drawer': {
-      type: Boolean
     }
   },
   data: () => ({
     showSideBar: true
   }),
+  computed: {
+    ...mapState(['sidebarStatus']),
+    ...mapGetters(['getSidebarStatus'])
+  },
   watch: {
-    'drawer'() {
-      this.showSideBar = this.drawer
+    sidebarStatus() {
+      this.showSideBar = this.sidebarStatus
+    },
+    showSideBar(newVal) {
+      this.SET_SIDEBAR_STATUS(newVal)
     }
   },
-  created() {
-    this.showSideBar = this.drawer
+  methods: {
+    ...mapMutations(['SET_SIDEBAR_STATUS'])
   }
 }
 </script>

@@ -77,9 +77,9 @@ export default {
         if (this.initials) {
           this.initials = this.$auth.user.first_name.split('')[0] + this.$auth.user.last_name.split('')[0]
         }
-      }
+      },
+      deep: true,
     },
-    deep: true,
   },
   mounted() {
     this.profileFields = {

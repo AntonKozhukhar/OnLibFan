@@ -4,7 +4,7 @@
     fixed
     src='https://about.proquest.com/globalassets/proquest/media/images/decrotive/oldbooks.jpg'
   >
-    <v-app-bar-nav-icon @click.stop='toggleSideBar' />
+    <v-app-bar-nav-icon @click='toggleSideBar' />
     <v-btn color='white' plain to='/'>
       {{ title }}
     </v-btn>
@@ -51,37 +51,39 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapMutations, mapState, mapGetters } from 'vuex'
 export default {
   name: 'AppBarComponent',
   data: () => ({
     title: 'OneLibFans',
     initials: '',
-    drawer: false,
   }),
+  computed: {
+    ...mapState(['sidebarStatus']),
+    ...mapGetters(['getSidebarStatus'])
+  },
   watch: {
     '$auth.user': {
       handler() {
         if (this.initials) {
           this.initials = this.$auth.user.first_name.split('')[0] + this.$auth.user.last_name.split('')[0]
         }
-      }
+      },
+      deep: true,
     },
-    deep: true,
   },
   mounted() {
     this.initials = this.$auth.user.first_name.split('')[0] + this.$auth.user.last_name.split('')[0]
   },
   methods:{
     ...mapActions('usersStore', ['logout']),
+    ...mapMutations(['SET_SIDEBAR_STATUS']),
     async logOut() {
       await this.logout()
       await this.$router.push({ path: '/' })
     },
     toggleSideBar() {
-      this.drawer = !this.drawer
-      console.log(this.drawer)
-      this.$emit('drawer',!this.drawer)
+      this.SET_SIDEBAR_STATUS(!this.sidebarStatus)
     }
   }
 }

@@ -2,8 +2,8 @@
   <v-app dark>
     <message-snackbar />
     <v-system-bar height='30'></v-system-bar>
-    <SideBar :items='items' :drawer='drawer' />
-    <AppBar @drawer='watchDrawer' />
+    <SideBar :items='items' />
+    <AppBar />
     <v-main>
       <v-breadcrumbs :items='crumbs'>
         <template #divider>
@@ -22,7 +22,6 @@
       <v-container>
         <Nuxt />
       </v-container>
-      {{ crumbs }}
     </v-main>
     <v-footer absolute app>
       <span>&copy; {{ new Date().getFullYear() }}</span>
@@ -50,34 +49,6 @@ export default {
       ]
     }
   },
-  computed: {
-    crumbs() {
-      if (this.$route.fullPath.length <= 1) return
-      const fullPath = this.$route.fullPath
-      const params = fullPath.substring(1)
-        .split('/')
-      const crumbs = [{
-        text: 'Home',
-        disabled: false,
-        to: '/'
-      }]
-      params.forEach(el => {
-        crumbs.push({
-          text: el[0].toUpperCase() + el.slice(1),
-          disabled: false,
-          to: `/${el}`
-        })
-      })
-      crumbs[crumbs.length - 1].disabled = true
-      return crumbs
-    }
-  },
-  methods: {
-    watchDrawer(value) {
-      console.log(this.drawer);
-      this.drawer = value
-    }
-  } 
 }
 </script>
 
